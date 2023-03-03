@@ -1,0 +1,291 @@
+@charset "UTF-8";
+@import './reset.css';
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap");
+:root {
+  --light: #e9e9e9;
+  --dark:#484747;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.pr-2 {
+  padding: 0 15px;
+}
+
+.gap-5 {
+  gap: 40px;
+}
+
+.align-center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.justify-center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.justify-between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.flex-column {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body {
+  background: url("https://img.freepik.com/premium-vector/star-sky-space-stars-background-glitter-particles_160081-317.jpg");
+  font-family: "Poppins", sans-serif;
+  color: var(--light);
+}
+
+body.dark {
+  background: url("https://c4.wallpaperflare.com/wallpaper/963/87/601/light-blue-background-hd-wallpaper-wallpaper-preview.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+  --light: #484747;
+  --dark: #e9e9e9;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.header {
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+  padding: 0 15px;
+}
+.header img {
+  -webkit-filter: drop-shadow(30px 10px 4px #4444dd);
+          filter: drop-shadow(30px 10px 4px #4444dd);
+  max-width: 50%;
+  -webkit-animation: header-animate 5s linear infinite;
+          animation: header-animate 5s linear infinite;
+}
+@-webkit-keyframes header-animate {
+  0%, 100% {
+    -webkit-filter: drop-shadow(25px 10px 4px #4444dd);
+            filter: drop-shadow(25px 10px 4px #4444dd);
+  }
+  50% {
+    -webkit-filter: drop-shadow(-25px -10px 4px #dd44c6);
+            filter: drop-shadow(-25px -10px 4px #dd44c6);
+  }
+}
+@keyframes header-animate {
+  0%, 100% {
+    -webkit-filter: drop-shadow(25px 10px 4px #4444dd);
+            filter: drop-shadow(25px 10px 4px #4444dd);
+  }
+  50% {
+    -webkit-filter: drop-shadow(-25px -10px 4px #dd44c6);
+            filter: drop-shadow(-25px -10px 4px #dd44c6);
+  }
+}
+.header .dark-mode {
+  background-color: var(--red);
+  position: absolute;
+  right: 25px;
+  top: 25px;
+}
+.header .dark-mode button {
+  color: var(--light);
+  background-color: var(--dark);
+  padding: 0.4em 0.7em 0.4em 3em;
+  border-radius: 50px;
+  border: 1px solid var(--light);
+  position: relative;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.header .dark-mode button::after {
+  position: absolute;
+  content: "";
+  width: 31px;
+  height: 31px;
+  left: 4px;
+  top: 3px;
+  border-radius: 50%;
+  background-color: var(--light);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.header .dark-mode button::before {
+  position: absolute;
+  content: "☀️";
+  width: 31px;
+  height: 31px;
+  left: 4px;
+  font-size: 1.3em;
+  top: 4px;
+  border-radius: 50%;
+}
+.header .dark-mode button.dark::after {
+  left: 40px;
+}
+
+.main .text-header {
+  font-size: 2em;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: 2em;
+}
+.main{
+  margin-bottom: 5em;
+}
+
+.main #favorites {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 1em 0 3em 0;
+}
+.main #favorites .circle {
+  width: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--light);
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.main #favorites .circle:hover {
+  border-color: #fd4e4e;
+}
+.main #favorites img {
+  border-radius: 50%;
+  width: 100%;
+}
+.main .card {
+  background-color: var(--light);
+  max-width: 200px;
+  height: 250px;
+  border-radius: 10px;
+  border: 1px solid var(--light);
+  -webkit-box-shadow: -2px -2px 20px var(--light);
+          box-shadow: -2px -2px 20px var(--light);
+}
+.main .card img {
+  width: 100%;
+  height: 90%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.main .card .name, .main .card i {
+  color: var(--dark);
+  cursor: pointer;
+}
+.main .card i {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.main .card i:hover {
+  color: #fd4e4e;
+}
+.main .card i.liked {
+  color: #fd4e4e;
+}
+.main .btn {
+  background-color: var(--light);
+  margin: 3em 0;
+  padding: 0.3em 1.7em;
+  color: var(--dark);
+  border: 1px solid var(--dark);
+  border-radius: 5px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.main .btn:hover {
+  border-color: var(--light);
+  background-color: var(--dark);
+  color: var(--light);
+}
+.main .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.5);
+}
+.main .modal.hide {
+  display: none;
+}
+.main .modal .modal-window {
+  position: relative;
+  background-color: var(--light);
+  max-width: 500px;
+  padding: 30px;
+  margin: 8% auto 0;
+  color: var(--dark);
+  font-weight: 600;
+  border: 2px solid var(--dark);
+  border-radius: 10px;
+}
+.main .modal .modal-window span {
+  font-weight: 400;
+}
+.main .modal .modal-window img {
+  border: 1px solid var(--dark);
+  border-radius: 10px;
+}
+.main .modal .modal-window .close-btn {
+  background-color: var(--dark);
+  border: 1px solid var(--light);
+  color: var(--light);
+  padding: 0.5em 1em;
+  border-radius: 50%;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.main .modal .modal-window .close-btn:hover {
+  color: var(--dark);
+  background-color: var(--light);
+  border-color: var(--dark);
+}
+.main .modal .modal-window .info {
+  line-height: 1.9;
+}
+
+@media screen and (max-width: 1024px) {
+  .header img {
+    max-width: 100%;
+  }
+  .main .card {
+    max-width: 153px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .main .card {
+    max-width: 160px;
+  }
+}/*# sourceMappingURL=style.min.css.map */

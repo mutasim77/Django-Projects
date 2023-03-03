@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick And Morty</title>
+    <script src="https://kit.fontawesome.com/97543b6a54.js" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://logos-world.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png"
+        type="image/x-icon">
+    <link rel="stylesheet" href="static/rick/styles.css">
+</head>
+
+<body>
+    <!-- header  -->
+    <header class="header">
+        <img src="https://logos-world.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png" alt="logo">
+    </header>
+
+    <!-- main  -->
+    <main class="main">
+        <div class="container flex flex-column align-center">
+            <div class="text-header">All Characters</div>
+            <div class="flex flex-wrap gap-5 justify-center" id="cards">
+                {% for card in cards %}
+                <div class="card">
+                    <img src="{{card.picture}}" alt="{{card.name}}">
+                    <div class="flex alig-center justify-between pr-2">
+                        <h3 class="name">{{card.name}}</h3>
+                        <div class="like"><i class="fa fa-heart" aria-hidden="true"></i></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
