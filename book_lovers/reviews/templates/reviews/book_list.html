@@ -1,0 +1,30 @@
+{% extends 'reviews/base.html' %}
+
+{% block content %}
+<h1 class="text-center fa-2 mt-5 text-danger">Welcome to BookLovers</h1>
+<ul class="d-flex flex-wrap justify-content-center">
+  {% for item in book_list %}
+  <li class="mt-5 mr-5" style="list-style: none;">
+    <div id="book_list">
+      <img style="width: 200px; height: 300px; object-fit: cover; border-radius: 10px;" src="{{ item.book.image }}"
+        alt="book">
+      <div>
+        <div class="text-danger text-bold">Title: <span class="text-dark">{{ item.book.title }}</span></div>
+        <div class="text-danger text-bold">Publisher: <span class="text-dark">{{ item.book.publisher }}</span></div>
+        <div class="text-danger text-bold">Publication Date:
+          <span class="text-dark">{{ item.book.publication_date }}</span>
+        </div>
+        <div class="text-danger text-bold">Rating:
+          <span class="text-white badge badge-primary badge-pill">{{ item.book_rating }}</span>
+        </div>
+        <div class="text-danger text-bold">Number of reviews:
+          <span class="text-dark">{{ item.number_of_reviews }}</span>
+        </div>
+        <a class="btn btn-danger btn-sm active mt-3 ml-5 pl-4 pr-4" role="button"
+          href="{% url 'book_detail' item.book.pk %}">Reviews</a>
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

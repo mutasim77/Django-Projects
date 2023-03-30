@@ -1,0 +1,97 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>BookLover</title>
+  <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3145/3145765.png" type="image/x-icon">
+
+  <style>
+    body {
+      background-color: #dcdada;
+    }
+
+    .navbar {
+      min-height: 100px;
+      font-size: 25px;
+    }
+
+    .navbar-brand {
+      font-size: 25px;
+    }
+
+    #book_list {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      width: 500px;
+      border: 1px solid #d4d2d2;
+      border-radius: 20px;
+      background-color: #f1efef;
+    }
+
+    #library {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      filter: blur(2px);
+    }
+
+    #main-text {
+      text-align: center;
+      color: #fff;
+      margin-top: 100px;
+      animation: animte 10s infinite linear;
+    }
+
+    @keyframes animte {
+
+      0%,
+      100% {
+        transform: translateX(-3em);
+      }
+
+      50% {
+        transform: translateX(3em);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/books/">Books <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Logout</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  {% block content %}
+  <img src="https://static01.nyt.com/images/2015/10/24/opinion/24manguel/24manguel-superJumbo.jpg" id="library">
+  <h1 id="main-text">Welcome to BookLovers</h1>
+  {% endblock %}
+</body>
+
+</html>

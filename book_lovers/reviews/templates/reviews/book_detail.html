@@ -1,0 +1,47 @@
+{% extends 'reviews/base.html' %}
+
+{% block content %}
+<h1 class="text-center fa-2 mt-5 text-danger mb-3">Book Details</h1>
+
+<div id="book_list" style="display: flex; margin: 0 auto;">
+      <img style="width: 200px; height: 300px; object-fit: cover; border-radius: 10px;" src="{{ book.image }}"
+            alt="book">
+      <div>
+            <div class="text-danger text-bold">Title: <span class="text-dark">{{ book.title }}</span></div>
+            <div class="text-danger text-bold">Publisher: <span class="text-dark">{{ book.publisher }}</span></div>
+            <div class="text-danger text-bold">Publication Date:
+                  <span class="text-dark">{{ book.publication_date }}</span>
+            </div>
+            <div class="text-danger text-bold">Rating:
+                  <span class="text-white badge badge-primary badge-pill">{{ book_rating }}</span>
+            </div>
+      </div>
+</div>
+
+{% if not reviews %}
+<hr>
+<h3 class="text-center text-danger">No review for this Book: <span class="text-dark">{{book.title}}</span> </h3>
+{% else %}
+<h3 class="text-danger text-center mt-3 mb-4">Review Comments</h3>
+<ul style="padding: 0;">
+      {% for review in reviews %}
+      <li class="list-group-item mb-4" style="border: 1px solid #000">
+            <h5>{{ forloop.counter }}.</h5>
+            <div class="text-danger text-bold">Review comment:
+                  <span class="text-dark">{{ review.content }}</span>
+            </div>
+            <div class="text-danger text-bold">Created on:
+                  <span class="text-dark">{{ review.date_created|date:"M d, Y" }}</span>
+            </div>
+            <div class="text-danger text-bold">Modified on:
+                  <span class="text-dark">{{ review.date_edited|date:"M d, Y" }}</span>
+            </div>
+            <div class="text-danger text-bold">Rating:
+                  <span class="text-white badge badge-primary badge-pill">{{ review.rating }}</span>
+            </div>
+            <div class="text-danger text-bold">Admin: <span class="text-dark">{{ review.creator.username }}</span></div>
+      </li>
+      {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
