@@ -16,8 +16,11 @@ Thank you for your attention! ✨ If you find this project useful, I would be ve
 
 ## Project Screenshots: 
 
-<img width="1000" alt="1" src="https://user-images.githubusercontent.com/96326525/229035727-676a341c-7f80-40d7-bb0d-7b32104e882b.png">
+1)
+<img width="900" alt="1" src="https://user-images.githubusercontent.com/96326525/229035727-676a341c-7f80-40d7-bb0d-7b32104e882b.png">
 
-<img width="1000" alt="2" src="https://user-images.githubusercontent.com/96326525/229035741-c915b2b5-887c-4a14-be86-cc1c8d8a7022.png">
+2)
+<img width="900" alt="2" src="https://user-images.githubusercontent.com/96326525/229035741-c915b2b5-887c-4a14-be86-cc1c8d8a7022.png">
 
-<img width="1000" alt="3" src="https://user-images.githubusercontent.com/96326525/229035665-4c8fe55a-a649-4cb4-a4e3-07753c070faf.png">
+3)
+<img width="900" alt="3" src="https://user-images.githubusercontent.com/96326525/229035665-4c8fe55a-a649-4cb4-a4e3-07753c070faf.png">
