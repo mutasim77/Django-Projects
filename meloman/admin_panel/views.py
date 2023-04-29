@@ -71,6 +71,8 @@ def book_edit(request, pk):
         book.author = request.POST.get('author')
         book.rating = request.POST.get('rating')
         book.price = request.POST.get('price')
+        book.is_published = request.POST.get('is_published', False) == "on"
+
         book.save()
         return redirect('book_list')
     return render(request, 'admin_panel/book_edit.html', {'book': book})
@@ -85,18 +87,18 @@ def book_delete(request, pk):
     return render(request, 'admin_panel/book_delete.html', {'book': book})
 
 
-# ? Delete Book from table
+# ? Add Book to the table
 def book_add(request):
     if request.method == 'POST':
         form = AddNewBook(request.POST, request.FILES) 
-        print('Hello', form)
         if form.is_valid():
             new_book = Book(
                 title=form.cleaned_data['title'],
                 author=form.cleaned_data['author'],
                 rating=form.cleaned_data['rating'],
                 price=form.cleaned_data['price'],
-                image=form.cleaned_data['image']
+                image=form.cleaned_data['image'],
+                is_published = request.POST.get('is_published', False) == "on"
             )
             new_book.save()
             return redirect('book_list')

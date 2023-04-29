@@ -9,13 +9,15 @@ class User(models.Model):
     age = models.IntegerField()
     gender = models.CharField(max_length=1)
     is_active = models.BooleanField(default=False)
-    image = models.ImageField(null=True)
-    # in case if i need to change the path of image: upload_to='path/../..'
+    
+    # additionally
+    image = models.ImageField(upload_to='users/', null=True)
+    email = models.CharField(max_length=50, null=True)
+    phone = models.CharField(max_length=50, null=True)
+    fullname = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return self.username
-
-#TODO: USER DETAILS TABLE
 
 
 class Book(models.Model):
@@ -24,7 +26,8 @@ class Book(models.Model):
     rating = models.IntegerField(help_text="The the reviewer has given.")
     author = models.CharField(max_length=70, help_text="The name of Author")
     price = models.CharField(max_length=10, help_text="Price of book")
-
+    is_published = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.title
 

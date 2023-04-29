@@ -16,22 +16,24 @@
 
 <body>
     <div class="container">
+
+        {% block content %}
+
         <!-- header  -->
         <header class="header flex items-center justify-between">
             <!-- logo  -->
             <div class="logo">
                 <a href="/"><img src="{% static 'base/images/logo.png' %}" alt="Logo"></a>
             </div>
-            <!-- search bar  -->
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
+
+            <form method="GET" class="search-bar">
+                <input type="text" class="form-control" name="search" placeholder="Search..."
+                    value="{{ request.GET.search }}">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+
             <!-- left side buttons  -->
             <div class="left-side flex items-center">
-                <a class="cart" href="{% url 'cart' %}">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                </a>
-
                 <a href="{% url 'profile' %}">
                     <span style="font-size: .5em;">
                         <img src="{% static 'base/images/user_profile.png' %}" alt="user" width="50"
@@ -64,8 +66,7 @@
             </div>
         </section>
 
-        {% block content %}
-
+        {% if not flag %}
         <!-- slider  -->
         <section class="slide">
             <div class="slideshow-container">
@@ -124,12 +125,18 @@
             </div>
         </section>
 
+        {% else %}
+
+        {% if not books %}
+        <div style="text-align: center; font-size: 1.5em;"> No results found for "{{ request.GET.search }}" </div>
+        {% else %}
+        <div style="text-align: center; font-size: 1.5em;"> Results for "{{ request.GET.search }}" </div>
+        {% endif %}
+
+        {% endif %}
+
         <!-- section cards boooks  -->
         <section class="card-books">
-            {% if not books %}
-            <div style="text-align: center;"> NO BOOKS </div>
-            {% endif %}
-
             <!-- right side  -->
             <div class="right-side">
                 <div class="content flex flex-wrap justify-center" id="shop-books">

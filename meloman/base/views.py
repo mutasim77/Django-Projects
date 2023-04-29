@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import AuthenticationForm
 from hashlib import sha256
 from django.urls import reverse
+import os
+from django.conf import settings
 
 from .models import *
 from .utils import validate_form_data
 import sys
-
+from admin_panel.models import AddNewBook
 
 # ? MAIN PAGE
 def main(request):
@@ -24,8 +27,14 @@ def main(request):
     else:
         context = {}
 
-    books = Book.objects.all()
+    books = Book.objects.filter(is_published=True)
     context['books'] = books
+    
+    search_input = request.GET.get('search') or ''   
+    if search_input:
+        context['books'] = context['books'].filter(title__icontains=search_input)
+        context['flag'] = 'Flag'
+        
     return render(request, 'base/main.html', context)
 
     
@@ -90,9 +99,6 @@ def logout(request):
     request.session.flush()
     return redirect('login_user')
 
-# ? CART
-def cart(request):
-    return render(request, 'base/cart.html')
 
 # ? BLOG
 def blog(request):
@@ -104,6 +110,54 @@ def contact(request):
 
 # ? PROFILE
 def profile(request):
-    # user = get_object_or_404(User, username=pk)
-    return render(request, 'base/profile.html')
+    user = get_object_or_404(User, id=1)
+    return render(request, 'base/profile.html', {'user': user})
+
+# ? Edit user info
+def profile_edit(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    if request.method == 'POST':
+        user.username = request.POST.get('username')
+        user.age = request.POST.get('age')
+        # user.gender = request.POST.get('gender')
+        user.email = request.POST.get('email')
+        user.phone = request.POST.get('phone')
+        user.fullname = request.POST.get('fullname')
+        
+        hash_password = sha256((request.POST.get('password')).encode()).hexdigest() 
+        user.password = hash_password
+        
+        image_file = request.FILES.get('image')
+        if image_file:
+            # Remove old image if exists
+            if user.image:
+                os.remove(os.path.join(settings.MEDIA_ROOT, str(user.image)))
+            
+            # Save new image to media folder
+            user.image = image_file
+            
+        user.save()
+        return redirect('profile')
+    return render(request, 'base/profile_edit.html', {'user': user})
     
+    
+    
+
+# ? Add Book to the table
+def user_book_add(request):
+    if request.method == 'POST':
+        form = AddNewBook(request.POST, request.FILES) 
+        if form.is_valid():
+            new_book = Book(
+                title=form.cleaned_data['title'],
+                author=form.cleaned_data['author'],
+                rating=form.cleaned_data['rating'],
+                price=form.cleaned_data['price'],
+                image=form.cleaned_data['image'],
+                is_published = False
+            )
+            new_book.save()
+            return redirect('profile')
+    else:
+        form = AddNewBook()
+    return render(request, 'base/user_add_book.html', {'form': form})

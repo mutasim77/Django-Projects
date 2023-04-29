@@ -114,12 +114,10 @@
                     <div class="card">
                         <div class="card-body" style="margin-bottom: 1.16rem;">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{% static 'base/images/user_profile.png' %}" alt="Admin"
-                                    class="border border-dark rounded-circle" width="150" height="150"
-                                    style="object-fit: cover;">
+                                <img src="{{user.image.url}}" alt="Admin" class="border border-dark rounded-circle"
+                                    width="150" height="150" style="object-fit: cover;">
                                 <div class="mt-3">
-                                    <!-- <h4>{{user.username|title}}</h4> -->
-                                    <h4>Mutasim</h4>
+                                    <h4>{{user.username|title}}</h4>
                                     <p class="text-secondary mb-1">Full Stack Developer</p>
                                     <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
                                     <div class="media-buttons d-flex">
@@ -136,6 +134,9 @@
                                             <i class="bx bxl-youtube"></i>
                                         </a>
                                     </div>
+                                    <a href="{% url 'user_book_add' %}" class="btn btn-primary"
+                                        style="margin-top: 1.5em;">Add Book</a>
+
                                 </div>
                             </div>
                         </div>
@@ -150,7 +151,16 @@
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    You full name
+                                    {{user.fullname}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Username</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{user.username}}
                                 </div>
                             </div>
                             <hr>
@@ -159,7 +169,16 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    Your email
+                                    {{user.email}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Password</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{user.password}}
                                 </div>
                             </div>
                             <hr>
@@ -168,7 +187,7 @@
                                     <h6 class="mb-0">Phone</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    Your phone number
+                                    {{user.phone}}
                                 </div>
                             </div>
                             <hr>
@@ -198,7 +217,8 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <a class="btn btn-primary" href="#">Edit</a>
+                                    <a href="{% url 'profile_edit' pk=1 %}"><button
+                                            class="btn btn-primary">Edit</button></a>
                                 </div>
                                 <div class="col-sm-6 justify-content-end d-flex">
                                     <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>

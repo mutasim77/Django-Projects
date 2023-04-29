@@ -11,6 +11,23 @@
     <script src="https://kit.fontawesome.com/97543b6a54.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+
+    <style>
+        .circle {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-left: 1.7em;
+        }
+
+        .green {
+            background-color: #44cc66;
+        }
+
+        .red {
+            background-color: #ff6060;
+        }
+    </style>
 </head>
 
 <body>
@@ -71,6 +88,7 @@
                         <th scope="col">AUTHOR</th>
                         <th scope="col">RATING</th>
                         <th scope="col">PRICE</th>
+                        <th scope="col">PUBLISHED</th>
                         <th scope="col">ACTIONS</th>
                     </tr>
                 </thead>
@@ -82,6 +100,14 @@
                     <td>{{book.author}}</td>
                     <td><i class="fas fa-star"></i> {{book.rating}}</td>
                     <td>${{book.price}}</td>
+                    <td>
+                        {% if book.is_published %}
+                        <div class="circle green"></div>
+                        {% else %}
+                        <div class="circle red"></div>
+                        {% endif %}
+                    </td>
+
                     <td>
                         <a href="{% url 'book_edit' pk=book.pk %}"><button class="btn btn-primary">EDIT</button></a>
                         <a href="{% url 'book_delete' pk=book.pk %}"><button class="btn btn-danger">DELETE</button></a>

@@ -2,6 +2,36 @@
 {% block content %}
 {% load static %}
 
+<!-- header  -->
+<header class="header flex items-center justify-center">
+    <div class="logo">
+        <a href="/"><img src="{% static 'base/images/logo.png' %}" alt="Logo"></a>
+    </div>
+</header>
+
+<!-- navbar  -->
+<section class="navbars">
+    <div class="container">
+        <div class="flex justify-between">
+            <div class="location">
+                <a href="{% url 'contact' %}"><i class="fa fa-solid fa-map"></i>Find a Book Store</a>
+            </div>
+            <nav class="nav">
+                <ul class="flex justify-between">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="contacts ">
+                <a href="tel:+7 778 786 3275" class="flex align-center"><i class="fa fa-solid fa-phone"></i> +7
+                    778
+                    786 3275</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- banner name   -->
 <section class="banner-name">
     <div class="container flex items-center justify-between">
