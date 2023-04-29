@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Admin panel</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>MANAGE USERS</p>
+                <li class="active">
+                    <a href="{% url 'user_list' %}">VIEW USERS</a>
+                </li>
+            </ul>
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="{% url 'admin_logout' %}">LOGOUT</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content" style="width: 100%;">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+
+                    <div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                            <i class="glyphicon glyphicon-align-left"></i>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    {% if error_message %}
+                    <div class="form-group alert alert-danger">
+                        <label for="exampleInputPassword1" style="color: red;">{{error}}</label>
+                    </div>
+                    {% elif user %}
+                    <form method="post" name="upform">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>id</label>
+                            <input type="text" class="form-control" value="{{user.id}}" placeholder="Password" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control" value="{{user.username}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="text" name="password" class="form-control" value="{{user.password}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" name="age" class="form-control" value="{{user.age}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div id="id_gender">
+                                <div>
+                                    <label for="id_gender_0">
+                                        <input type="radio" name="gender" value="M" required="" id="id_gender_0"
+                                            checked>
+                                        Male
+                                    </label>
+                                </div>
+                                <div>
+                                    <label for="id_gender_1">
+                                        <input type="radio" name="gender" value="F" required="" id="id_gender_1">
+                                        Female
+                                    </label>
+                                </div>
+                                <div>
+                                    <label for="id_gender_2">
+                                        <input type="radio" name="gender" value="O" required="" id="id_gender_2">
+                                        Other
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <button onclick="return validateEdit()" style="width: 48%;" type="submit"
+                                class="btn btn-primary">SAVE</button>
+                            <a href="{% url 'user_delete' pk=user.id %}" style="width: 48%;" class="btn btn-danger">
+                                DELETE
+                            </a>
+                        </div>
+
+                    </form>
+
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-6"><br>
+                    <div id="error"></div>
+                    {% if messages %}
+                    <div class="alert alert-primary" role="alert">
+                        <p>Message:</p>
+                        {% for message in messages %}
+                        <p class="{{message.tags}}">{{message}}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

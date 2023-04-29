@@ -1,0 +1,42 @@
+{% extends 'base/main.html' %}
+{% block content %}
+{% load static %}
+
+<!-- banner name   -->
+<section class="banner-name">
+    <div class="container flex items-center justify-between">
+        <h1>Contact</h1>
+        <div class="flex items-center">
+            <a href="{% url 'main' %}">HOME</a>
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            <p>Contact</p>
+        </div>
+    </div>
+</section>
+
+<!-- section contact us  -->
+<section class="contact-us">
+    <div class="container">
+        <div class="flex justify-between flex-wrap">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46533.244026375156!2d76.82251685820309!3d43.2026145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3883689433766f49%3A0x66f7eb946908e6fa!2z0JzQldCb0J7QnNCQ0J0tTUFSV0lOINCi0KDQpiDCq01FR0EgQWxtYS1BdGHCuw!5e0!3m2!1sru!2skz!4v1671367911449!5m2!1sru!2skz"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="forms flex flex-column">
+                <h2>We Would Love To Hear From You.</h2>
+                <p>Your email address will not be published.</p>
+                <input type="text" placeholder="Name" id="name" autocomplete="off">
+                <input type="text" placeholder="Subject" id="subject" autocomplete="off">
+                <textarea placeholder="Message"></textarea>
+                <div class="error hide">Ooops, Something goes wrong!</div>
+                <button id="btn">Submit</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+{% endblock content %}

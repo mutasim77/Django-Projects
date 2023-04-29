@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Admin panel</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>MANAGE</p>
+                <li class="">
+                    <a href="{% url 'user_list' %}">USERS</a>
+                </li>
+
+                <li class="">
+                    <a href="{% url 'book_list' %}">BOOKS</a>
+                </li>
+            </ul>
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="{% url 'admin_logout' %}">LOGOUT</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content" style="width: 100%;">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+
+                    <div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                            <i class="glyphicon glyphicon-align-left"></i>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    {% if error_message %}
+                    <div class="form-group alert alert-danger">
+                        <label for="exampleInputPassword1" style="color: red;">{{error}}</label>
+                    </div>
+                    {% endif %}
+
+                    <form method="post" name="upform">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="title" class="form-control" value="{{book.title}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Author</label>
+                            <input type="text" name="author" class="form-control" value="{{book.author}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Rating</label>
+                            <input type="number" name="rating" class="form-control" value="{{book.rating}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" name="price" class="form-control" value="{{book.price}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="text" name="image" class="form-control" value="{{book.image}}">
+                        </div>
+
+                        <div class="flex justify-between">
+                            <button onclick="return validateEdit()" style="width: 48%;" type="submit"
+                                class="btn btn-primary">SAVE</button>
+                            <a href="{% url 'book_delete' pk=book.id %}" style="width: 48%;" class="btn btn-danger">
+                                DELETE
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="col-lg-6"><br>
+                    <div id="error"></div>
+                    {% if messages %}
+                    <div class="alert alert-primary" role="alert">
+                        <p>Message:</p>
+                        {% for message in messages %}
+                        <p class="{{message.tags}}">{{message}}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

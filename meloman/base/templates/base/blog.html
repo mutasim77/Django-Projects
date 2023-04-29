@@ -1,0 +1,161 @@
+{% extends 'base/main.html' %}
+{% block content %}
+{% load static %}
+
+<!-- banner name   -->
+<section class="banner-name">
+    <div class="container flex items-center justify-between">
+        <h1>Blog</h1>
+        <div class="flex items-center">
+            <a href="{% url 'main' %}">HOME</a>
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            <p>Blog</p>
+        </div>
+    </div>
+</section>
+
+<!-- section quotes  -->
+<section class="quotes">
+    <div class="container">
+        <div>
+            <h2>Quotes of the day:</h2>
+
+            <q>Just one small positive thought in the morning can change your whole day.</q>
+            <button>Change Quote</button>
+        </div>
+    </div>
+</section>
+
+<!-- all blogs  -->
+<section class="all-blogs">
+    <div class="container">
+        <div class="flex justify-between flex-wrap">
+            <!-- left side  -->
+            <div class="left-side">
+                <!-- acriticle 1 -->
+                <article id="article1">
+                    <img src="{% static 'base/images/blogs/1.jpeg' %}" alt="BlogPicture">
+                    <div>DECEMBER 14, 2022 / BY SUSAN OBSORNE</div>
+                    <h2>Books to Look Out For Out for in January 2023</h2>
+                    <p>
+                        The second instalment of January fiction is all about and written by women beginning with a
+                        novel set in a world which tends to be dominated by men. Based on interviews with a female
+                        horse trainer, Kathryn Scanlan’s Kick the Latch follows one woman’s career while exploring
+                        all aspects of life at the racetrack, from the track winners to the grooms, jockeys and
+                        racing secretaries...
+                    </p>
+                </article>
+                <!-- acriticle 2 -->
+                <article id="article2">
+                    <img src="{% static 'base/images/blogs/2.jpeg' %}" alt="BlogPicture">
+                    <div>DECEMBER 20, 2022 / BY ADMIN</div>
+                    <h2>Books of the Year 2022</h2>
+                    <p>
+                        This year continued the move back towards normality for me. H and I finally managed to take
+                        both the holidays abroad we’d booked for 2020 and there was much more socialising and
+                        getting out and about. We’re going to the cinema again (easy to lose touch when you don’t
+                        see the trailers) but I’ve realised Cover image for Zorrie by Laird Huntthat the world music
+                        gigs we enjoyed so much have been scuppered by Brexit. Yet another unwelcome side effect. As
+                        for books, as ever, I’ve struggled to get this year’s favourites down to twenty so it will
+                        be four posts again, beginning with a long one for the first quarter of the year when we
+                        were still hiding from Omicron...
+                    </p>
+                </article>
+                <!-- acriticle 3 -->
+                <article id="article3">
+                    <img src="{% static 'base/images/blogs/3.jpeg' %}" alt="BlogPicture">
+                    <div>NOVEMBER 18, 2022 / BY KARLA NEWMAN</div>
+                    <h2>Six Degrees of Separation – The Snow Child to Weasels in the Attic</h2>
+                    <p>
+                        Six Degrees of Separation is a meme hosted by Kate over at Books Are My Favourite and Best.
+                        It works like this: each month a book is chosen as a starting point and linked to six others
+                        to form a chain. A book doesn’t need to be connected to all the titles on the list, only to
+                        the one next to it in the chain.
+                        This month we’re starting with Eowyn Ivey’s The Snow Child which I’ve not read but I gather
+                        it’s based on a Russian fairy tale about a childless couple who one day find a little girl
+                        on their land.
+                        There’s more than a whiff of the fairy tale about Helen Oyeyemi’s Boy Snow Bird, a tale of
+                        race and identity...
+                    </p>
+                </article>
+                <!-- acriticle 4 -->
+                <article id="article4">
+                    <img src="{% static 'base/images/blogs/4.jpeg' %}" alt="BlogPicture">
+                    <div>NOVEMBER 2, 2022 / BY SUZANNE CASEY</div>
+                    <h2>Five Swedish Novels I’ve Read</h2>
+                    <p>
+                        Given how much of my viewing time has been spent there thanks to Walter Presents, you’d
+                        think I’d have read more Scandinavian fiction but perhaps it’s because so much of the
+                        translated variety is crime related. Below are five striking Swedish novels I’ve read, all
+                        with links to my reviews, beginning with an award-winning piece of crime Cover image for To
+                        Coook a Bear by Mikael Niemifiction which brought to mind one of those Walter Presents
+                        series I’ve spent all that time glued to...
+                    </p>
+                </article>
+                <!-- acriticle 5 -->
+                <article id="article5">
+                    <img src="{% static 'base/images/blogs/5.jpeg' %}" alt="BlogPicture">
+                    <div>DECEMBER 5, 2022 / BY JESSICA MUNOZ</div>
+                    <h2>Dinosaurs: A Novel by Lydia Millet: "You can do your best all your life"</h2>
+                    <p>
+                        I spotted Lydia Millet’s Dinosaurs on NetGalley, pleased to be reminded of how much I’d
+                        enjoyed Oh Pure and Radiant Heart many moons ago. This subtle, understated novel follows Gil
+                        who’s decided to put his New York past behind him and move to Arizona, captivated by footage
+                        of the Arizonan landscape, and having nothing better to do, decides to walk there.
+                        Lane’s memory took up the space where new affection might live. Lost and aimless, like a
+                        faithful dog.
+                        Confused by the disappearance of its master.After five months of walking across his country,
+                        Gil arrives at his castle-like new home and gazes across at the elegant, empty modernist
+                        glass house next door. Shortly after, a family moves in, walking around their beautiful
+                        glowing home as if on stage...
+                    </p>
+                </article>
+            </div>
+            <!-- right side  -->
+            <div class="right-side">
+                <h2>Recent Posts</h2>
+                <div class="flex flex-column">
+
+                    <div class="info flex align-center">
+                        <a href="#article1"><img src="{% static 'base/images/blogs/1.jpeg' %}" alt="BlogPicture"></a>
+                        <div class="flex flex-column">
+                            <p>DECEMBER 14, 2022</p>
+                            <h3>Books to Look Out For Out for in January 2023</h3>
+                        </div>
+                    </div>
+                    <div class="info flex align-center">
+                        <a href="#article2"><img src="{% static 'base/images/blogs/2.jpeg' %}" alt="BlogPicture"></a>
+                        <div class="flex flex-column">
+                            <p>DECEMBER 20, 2022</p>
+                            <h3>Books of the Year 2022</h3>
+                        </div>
+                    </div>
+                    <div class="info flex align-center">
+                        <a href="#article3"><img src="{% static 'base/images/blogs/3.jpeg' %}" alt="BlogPicture"></a>
+                        <div class="flex flex-column">
+                            <p>NOVEMBER 18, 2022</p>
+                            <h3>Six Degrees of Separation – The Snow Child to Weasels in the Attic</h3>
+                        </div>
+                    </div>
+                    <div class="info flex align-center">
+                        <a href="#article4"><img src="{% static 'base/images/blogs/4.jpeg' %}" alt="BlogPicture"></a>
+                        <div class="flex flex-column">
+                            <p>NOVEMBER 2, 2022</p>
+                            <h3>Five Swedish Novels I’ve Read</h3>
+                        </div>
+                    </div>
+                    <div class="info flex align-center">
+                        <a href="#article5"><img src="{% static 'base/images/blogs/5.jpeg' %}" alt="BlogPicture"></a>
+                        <div class="flex flex-column">
+                            <p>DECEMBER 5, 2022</p>
+                            <h3>Dinosaurs: A Novel by Lydia Millet: "You can do your best all your life"</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

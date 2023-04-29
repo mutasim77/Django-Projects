@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            margin: auto;
+            width: 50%;
+            margin-top: 5%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px 1px #ccc;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-top: 0;
+        }
+
+        p {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c22;
+        }
+
+        a {
+            display: inline-block;
+            margin-left: 20px;
+            font-size: 18px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Confirm Deletion</h1>
+        <p>Are you sure you want to delete user '{{ user.username }}'?</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
+        <a href="{% url 'user_list' %}" class="btn btn-primary">Cancel</a>
+    </div>
+</body>
+
+</html>

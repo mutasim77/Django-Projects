@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <title>Admin</title>
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+
+        form {
+            max-width: 500px;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        input[type="submit"],
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #008CBA;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            /* margin-top: 15px; */
+        }
+
+        input[type="submit"]:hover,
+        .btn:hover {
+            background-color: #006B9F;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background-color: #aaa;
+        }
+
+        p {
+            margin: 0;
+            margin-top: 30px;
+            color: #f57373;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Add a new Book 📚</h2>
+            <div class="form-group"> {{ form.title }} </div>
+
+            <div class="form-group"> {{ form.author }} </div>
+
+            <div class="form-group"> {{ form.rating }} </div>
+
+            <div class="form-group"> {{ form.price }} </div>
+
+            <div class="form-group">{{ form.image }}</div>
+            <input class="btn" type="submit" value="Add" style="margin-top: 15px;">
+            <p class="text-center">Don't wanna add a new book? <a href="{% url 'book_list' %}"
+                    class="btn btn-primary">Cancel</a></p>
+        </form>
+    </div>
+</body>
+
+</html>
