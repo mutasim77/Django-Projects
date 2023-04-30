@@ -27,6 +27,7 @@ class Book(models.Model):
     author = models.CharField(max_length=70, help_text="The name of Author")
     price = models.CharField(max_length=10, help_text="Price of book")
     is_published = models.BooleanField(default=False)
+    genre = models.CharField(null=True,max_length=70, help_text="The genre of the book.")
     
     def __str__(self):
         return self.title

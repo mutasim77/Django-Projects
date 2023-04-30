@@ -21,11 +21,19 @@
 
         <!-- header  -->
         <header class="header flex items-center justify-between">
-            <!-- logo  -->
-            <div class="logo">
-                <a href="/"><img src="{% static 'base/images/logo.png' %}" alt="Logo"></a>
+
+            <!-- right side buttons  -->
+            <div class="flex items-center gap-5">
+                <div id="menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <!-- logo  -->
+                <div class="logo">
+                    <a href="/"><img src="{% static 'base/images/logo.png' %}" alt="Logo"></a>
+                </div>
             </div>
 
+            <!-- search-bar  -->
             <form method="GET" class="search-bar">
                 <input type="text" class="form-control" name="search" placeholder="Search..."
                     value="{{ request.GET.search }}">
@@ -42,6 +50,30 @@
                 </a>
             </div>
         </header>
+
+        <!-- drop left menu  -->
+        <div class="drop-left-menu">
+            <h2>Genres</h2>
+
+            <ul class="genre_list">
+                {% for genre in genre_list %}
+                <li>
+                    <a href="{% url 'book_genre' genre.genre|lower %}">{{ genre.genre }}
+                        <span style="color:#373737">({{ genre.num_books }})</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <h2>Price</h2>
+
+            <ul class="genre_list">
+                <li><a href="{% url 'book_price' '10.99_15.99' %}">$10.99 - $15.99</a></li>
+                <li><a href="{% url 'book_price' '15.99_20.99' %}">15.99 - $20.99</a></li>
+                <li><a href="{% url 'book_price' '20.99_25.99' %}">$20.99 - $25.99</a></li>
+            </ul>
+
+        </div>
 
         <!-- navbar  -->
         <section class="navbars">
@@ -138,10 +170,12 @@
         <!-- section cards boooks  -->
         <section class="card-books">
             <!-- right side  -->
-            <div class="right-side">
-                <div class="content flex flex-wrap justify-center" id="shop-books">
+            <h2 style="text-align: center; font-size: 2em; margin-bottom: 1em;">Books</h2>
 
-                    {% for book in books%}
+            <div class="right-side">
+
+                <div class="content flex flex-wrap justify-center" id="shop-books">
+                    {% for book in books %}
 
                     <div class="flex gap-2 flex-column">
                         <img src="{{book.image.url}}" alt="book">

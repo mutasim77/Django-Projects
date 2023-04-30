@@ -8,6 +8,8 @@ from hashlib import sha256
 from django.urls import reverse
 import os
 from django.conf import settings
+from django.db.models import Count
+from django.db.models import Q
 
 from .models import *
 from .utils import validate_form_data
@@ -26,15 +28,19 @@ def main(request):
             context = {}
     else:
         context = {}
-
+    
+    #all books
     books = Book.objects.filter(is_published=True)
     context['books'] = books
-    
+    #genre list
+    genre_list = sorted(Book.objects.values('genre').annotate(num_books=Count('id')), key=lambda x: x['genre'])
+    context['genre_list'] = genre_list
+
     search_input = request.GET.get('search') or ''   
     if search_input:
         context['books'] = context['books'].filter(title__icontains=search_input)
         context['flag'] = 'Flag'
-        
+
     return render(request, 'base/main.html', context)
 
     
@@ -154,10 +160,24 @@ def user_book_add(request):
                 rating=form.cleaned_data['rating'],
                 price=form.cleaned_data['price'],
                 image=form.cleaned_data['image'],
-                is_published = False
+                is_published = False,
+                genre=form.cleaned_data['genre']
             )
             new_book.save()
             return redirect('profile')
     else:
         form = AddNewBook()
     return render(request, 'base/user_add_book.html', {'form': form})
+
+
+
+def book_genre(request, pk):
+    books = Book.objects.filter(genre__icontains=pk)
+    return render(request, 'base/genres.html', {'books' : books})
+
+
+def book_price(request, pk):
+    pk = pk.split('_')
+    books = Book.objects.filter(price__gte=pk[0], price__lte=pk[1])
+    return render(request, 'base/price.html', {'books' : books})
+

@@ -71,6 +71,7 @@ def book_edit(request, pk):
         book.author = request.POST.get('author')
         book.rating = request.POST.get('rating')
         book.price = request.POST.get('price')
+        book.genre = request.POST.get('genre')
         book.is_published = request.POST.get('is_published', False) == "on"
 
         book.save()
@@ -98,7 +99,8 @@ def book_add(request):
                 rating=form.cleaned_data['rating'],
                 price=form.cleaned_data['price'],
                 image=form.cleaned_data['image'],
-                is_published = request.POST.get('is_published', False) == "on"
+                genre=form.cleaned_data['genre'],
+                is_published = request.POST.get('is_published', False) == "on",
             )
             new_book.save()
             return redirect('book_list')

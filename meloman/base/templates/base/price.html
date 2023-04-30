@@ -1,0 +1,86 @@
+{% extends 'base/main.html' %}
+{% block content %}
+{% load static %}
+
+
+<!-- header  -->
+<header class="header flex items-center justify-center">
+    <div class="logo">
+        <a href="/"><img src="{% static 'base/images/logo.png' %}" alt="Logo" width="300px"></a>
+    </div>
+</header>
+
+<!-- navbar  -->
+<section class="navbars">
+    <div class="container">
+        <div class="flex justify-between">
+            <div class="location">
+                <a href="{% url 'contact' %}"><i class="fa fa-solid fa-map"></i>Find a Book Store</a>
+            </div>
+            <nav class="nav">
+                <ul class="flex justify-between">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="contacts ">
+                <a href="tel:+7 778 786 3275" class="flex align-center"><i class="fa fa-solid fa-phone"></i> +7
+                    778
+                    786 3275</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- banner name   -->
+<section class="banner-name">
+    <div class="container flex items-center justify-between">
+        <h1>Price</h1>
+        <div class="flex items-center">
+            <a href="{% url 'main' %}">HOME</a>
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            <p>Price</p>
+        </div>
+    </div>
+</section>
+
+<!-- section cards boooks  -->
+<section class="card-books">
+    <!-- right side  -->
+    <div class="right-side">
+        <div class="content flex flex-wrap justify-center" id="shop-books">
+
+            {% for book in books%}
+
+            <div class="flex gap-2 flex-column">
+                <img src="{{book.image.url}}" alt="book">
+                <div class="flex flex-column  content-info">
+                    <h4>{{book.title}}</h4>
+
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="far fa-star"></i>
+                        <span>{{book.rating}}</span>
+                    </div>
+
+                    <p>{{book.author}}</p>
+                    <div class="price">${{book.price}}</div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+{% endblock content %}

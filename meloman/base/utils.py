@@ -28,3 +28,5 @@ def validate_form_data(username, password, confirm_password, age, gender):
         errors['existing_username'] = 'Username already exists!'
 
     return errors
+
+

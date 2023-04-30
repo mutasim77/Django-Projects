@@ -700,3 +700,54 @@ section.navbars {
   .footer .container > div:last-child span {
     color: #f65d4e;
   }
+
+
+  /* ----------- FILTER ---------  */
+
+#menu > i{
+  font-size: 1.5em;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.drop-left-menu{
+  position: absolute;
+  width: 300px;
+  height: 85vh;
+  z-index: 9999;
+  left: -21%;
+  border-radius: 0 10px 10px 0;
+  background-color: rgba(152, 152, 152, 0.99);
+  transition: all .7s ease;
+}
+
+.drop-left-menu.active{
+  left: 0;
+}
+
+.drop-left-menu h2{
+  text-align: center;
+  font-size: 1.1em;
+  margin-top: 10px;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: 700;
+} 
+
+.genre_list{
+  margin: 10px 0 0 10px;
+}
+
+.genre_list > li:not(:last-child){
+  margin-bottom: 15px;
+}
+
+.genre_list > li > a{
+  color: #000;
+  transition: all .3s ease;
+}
+
+.genre_list > li > a:hover{
+  color: #fff;
+}
+

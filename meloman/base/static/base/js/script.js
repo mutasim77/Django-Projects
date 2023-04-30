@@ -44,3 +44,36 @@ function show(quotes) {
         document.querySelector('.quotes q').textContent = arr[counter].text;
     })
 }
+
+
+
+//! Burget Menu;
+
+const menuToggle = document.querySelector('#menu > i');
+const dropLeftMenu = document.querySelector('.drop-left-menu');
+
+menuToggle.addEventListener('click', () => {
+    if (menuToggle.classList.contains('fa-xmark')) {
+        closeMenu();
+    } else {
+        showMenu();
+    }
+});
+
+function showMenu() {
+    dropLeftMenu.classList.add('active');
+    menuToggle.classList.remove('fa-bars');
+    menuToggle.classList.add('fa-xmark');
+}
+
+function closeMenu() {
+    dropLeftMenu.classList.remove('active');
+    menuToggle.classList.remove('fa-xmark');
+    menuToggle.classList.add('fa-bars');
+}
+
+document.addEventListener('scroll', () => {
+    if (window.scrollY > 165) {
+        closeMenu();
+    }
+})
