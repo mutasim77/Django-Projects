@@ -8,17 +8,17 @@ from .views import *
 
 
 urlpatterns = [
-    # User
-    path('admin/', admin_login, name='admin_login'),
-    path('admin/', admin_logout, name='admin_logout'),
-    path('admin/users/', user_list, name='user_list'),
-    path('admin/user-edit/<int:pk>', user_edit, name='user_edit'),
-    path('admin/user-delete/<int:pk>', user_delete, name='user_delete'),
+    # Admin and User
+    path('admin/', AdminLoginView.as_view(), name='admin_login'),
+    path('admin/', AdminLogoutView.as_view(), name='admin_logout'),
+    path('admin/users/', UserListView.as_view(), name='user_list'),
+    path('admin/user-edit/<int:pk>', UserEditView.as_view(), name='user_edit'),
+    path('admin/user-delete/<int:pk>', UserDeleteView.as_view(), name='user_delete'),
 
     # Book
-    path('admin/books/', book_list, name='book_list'),
-    path('admin/book-add/', book_add, name='book_add'),
-    path('admin/book-edit/<int:pk>', book_edit, name='book_edit'),
-    path('admin/book-delete/<int:pk>', book_delete, name='book_delete'),
+    path('admin/books/', BookListView.as_view(), name='book_list'),
+    path('admin/book-add', BookAddView.as_view(), name='book_add'),
+    path('admin/book-edit/<int:pk>', BookEditView.as_view(), name='book_edit'),
+    path('admin/book-delete/<int:pk>', BookDeleteView.as_view(), name='book_delete'),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

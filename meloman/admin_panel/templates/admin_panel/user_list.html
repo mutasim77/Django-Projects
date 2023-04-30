@@ -9,6 +9,8 @@
     <title>Admin</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="shortcut icon" href="https://simg.marwin.kz/media/favicon/stores/1/favicon.ico" type="image/x-icon">
+
 </head>
 
 <body>
@@ -64,9 +66,10 @@
                     <tr>
                         <th scope="col">IMG</th>
                         <th scope="col">USERNAME</th>
-                        <th scope="col">PASSWORD</th>
+                        <th scope="col">EMAIL</th>
+                        <th scope="col">PHONE</th>
                         <th scope="col">AGE</th>
-                        <th scope="col">Gender</th>
+                        <th scope="col">GENDER</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -74,9 +77,11 @@
                 {% for user in users %}
                 <tr>
                     <td><img src="{% if user.image %} {{ user.image.url }} {% else %} /media/users/user.png {% endif %}"
-                            alt="{{book.title}}" style="object-fit: cover;" width="50px" height="50px"></td>
+                            alt="{{book.title}}" style="object-fit: cover; border-radius: 50%;" width="50px"
+                            height="50px"></td>
                     <td>{{user.username}}</td>
-                    <td>{{user.password}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone}}</td>
                     <td>{{user.age}}</td>
                     <td>
                         {% if user.gender == 'M' %}

@@ -2,70 +2,56 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import *
+from django.views import View
 
 from base.models import User, Book
 
 
-# ? Admin login
-def admin_login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/admin/users/')
-        else:
-            error_message = 'Invalid username or password'
-    else:
-        error_message = ''
-    return render(request, 'admin_panel/admin_login.html', {'error_message': error_message})
+#*-----------User-----------
 
+#? Edit user info
+class UserEditView(View):
+    def get(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+        return render(request, 'admin_panel/user_edit.html', {'user': user})
 
-# ? Admin logout
-def admin_logout(request):
-    request.session.flush()
-    return redirect('admin_login')
-
-
-# ? List of all users;
-def user_list(request):
-    users = User.objects.all()
-    return render(request, 'admin_panel/user_list.html', {'users': users})
-
-
-# ? List of all Books;
-def book_list(request):
-    books = Book.objects.all()
-    return render(request, 'admin_panel/book_list.html', {'books': books})
-
-
-# ? Edit user info
-def user_edit(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    if request.method == 'POST':
+    def post(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
         user.username = request.POST.get('username')
-        user.password = request.POST.get('password')
         user.age = request.POST.get('age')
-        user.gender = request.POST.get('gender')
+        user.phone = request.POST.get('phone')
+        user.email = request.POST.get('email')
+        user.fullname = request.POST.get('fullname')
         user.save()
         return redirect('user_list')
-    return render(request, 'admin_panel/user_edit.html', {'user': user})
+  
+#? Delete User from table
+class UserDeleteView(View):
+    def get(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+        return render(request, 'admin_panel/user_delete.html', {'user': user})
 
-
-# ? Delete User from table
-def user_delete(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    if request.method == 'POST':
+    def post(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
         user.delete()
         return redirect('user_list')
-    return render(request, 'admin_panel/user_delete.html', {'user': user})
+    
+# ? List of all users;
+class UserListView(View):
+    def get(self, request):
+        users = User.objects.all()
+        return render(request, 'admin_panel/user_list.html', {'users' : users})
 
+#*-----------Book-----------
 
 # ? Edit user info
-def book_edit(request, pk):
-    book = get_object_or_404(Book, pk=pk)
-    if request.method == 'POST':
+class BookEditView(View):
+    def get(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
+        return render(request, 'admin_panel/book_edit.html', {'book': book})
+
+    def post(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
         book.image = request.POST.get('image')
         book.title = request.POST.get('title')
         book.author = request.POST.get('author')
@@ -73,24 +59,27 @@ def book_edit(request, pk):
         book.price = request.POST.get('price')
         book.genre = request.POST.get('genre')
         book.is_published = request.POST.get('is_published', False) == "on"
-
         book.save()
         return redirect('book_list')
-    return render(request, 'admin_panel/book_edit.html', {'book': book})
-
 
 # ? Delete Book from table
-def book_delete(request, pk):
-    book = get_object_or_404(Book, pk=pk)
-    if request.method == 'POST':
+class BookDeleteView(View):
+    def get(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
+        return render(request, 'admin_panel/book_delete.html', {'book': book})
+
+    def post(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
         book.delete()
         return redirect('book_list')
-    return render(request, 'admin_panel/book_delete.html', {'book': book})
-
 
 # ? Add Book to the table
-def book_add(request):
-    if request.method == 'POST':
+class BookAddView(View):
+    def get(self, request):
+        form = AddNewBook()
+        return render(request, 'admin_panel/add_new_book.html', {'form': form})
+
+    def post(self, request):
         form = AddNewBook(request.POST, request.FILES) 
         if form.is_valid():
             new_book = Book(
@@ -104,6 +93,37 @@ def book_add(request):
             )
             new_book.save()
             return redirect('book_list')
-    else:
-        form = AddNewBook()
-    return render(request, 'admin_panel/add_new_book.html', {'form': form})
+        return render(request, 'admin_panel/add_new_book.html', {'form': form})
+
+# ? List of all Books;
+class BookListView(View):
+    def get(self, request):
+        books = Book.objects.all()
+        return render(request, 'admin_panel/book_list.html', {'books': books})
+
+#*-----------ADMIN-----------
+
+# ? Admin login
+class AdminLoginView(View):
+    def get(self, request):
+        error_message = ''
+        return render(request, 'admin_panel/admin_login.html', {'error_message': error_message})
+    
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/admin/users/')
+        else:
+            error_message = 'Invalid username or password'
+            return render(request, 'admin_panel/admin_login.html', {'error_message': error_message})
+      
+# ? Admin logout
+class AdminLogoutView(View):
+    def get(self, request):
+        request.session.flush()
+        return redirect('admin_login')
+
+

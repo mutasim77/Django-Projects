@@ -9,6 +9,8 @@
     <title>Admin</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="shortcut icon" href="https://simg.marwin.kz/media/favicon/stores/1/favicon.ico" type="image/x-icon">
+
 </head>
 
 <body>
@@ -47,6 +49,7 @@
             </nav>
 
             <div class="row">
+
                 <div class="col-lg-6">
                     {% if error_message %}
                     <div class="form-group alert alert-danger">
@@ -55,6 +58,7 @@
                     {% elif user %}
                     <form method="post" name="upform">
                         {% csrf_token %}
+
                         <div class="form-group">
                             <label>id</label>
                             <input type="text" class="form-control" value="{{user.id}}" placeholder="Password" readonly>
@@ -66,8 +70,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="text" name="password" class="form-control" value="{{user.password}}">
+                            <label>Full Name</label>
+                            <input type="text" name="fullname" class="form-control" value="{{user.fullname}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" name="email" class="form-control" value="{{user.email}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" name="phone" class="form-control" value="{{user.phone}}">
                         </div>
 
                         <div class="form-group">
@@ -75,30 +89,7 @@
                             <input type="number" name="age" class="form-control" value="{{user.age}}">
                         </div>
 
-                        <div class="form-group">
-                            <label>Gender</label>
-                            <div id="id_gender">
-                                <div>
-                                    <label for="id_gender_0">
-                                        <input type="radio" name="gender" value="M" required="" id="id_gender_0"
-                                            checked>
-                                        Male
-                                    </label>
-                                </div>
-                                <div>
-                                    <label for="id_gender_1">
-                                        <input type="radio" name="gender" value="F" required="" id="id_gender_1">
-                                        Female
-                                    </label>
-                                </div>
-                                <div>
-                                    <label for="id_gender_2">
-                                        <input type="radio" name="gender" value="O" required="" id="id_gender_2">
-                                        Other
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <div class="flex justify-between">
                             <button onclick="return validateEdit()" style="width: 48%;" type="submit"
@@ -113,16 +104,9 @@
                     {% endif %}
                 </div>
 
-                <div class="col-lg-6"><br>
-                    <div id="error"></div>
-                    {% if messages %}
-                    <div class="alert alert-primary" role="alert">
-                        <p>Message:</p>
-                        {% for message in messages %}
-                        <p class="{{message.tags}}">{{message}}</p>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
+                <div class="col-lg-6">
+                    <img src="{{user.image.url}}" alt="{{user.username}}"
+                        style="border-radius: 50%; width: 300px; height: 300px; object-fit: cover; border: 1px solid #000;">
                 </div>
 
             </div>
