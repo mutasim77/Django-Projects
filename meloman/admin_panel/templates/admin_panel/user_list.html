@@ -62,7 +62,7 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope="col">IMG</th>
                         <th scope="col">USERNAME</th>
                         <th scope="col">PASSWORD</th>
                         <th scope="col">AGE</th>
@@ -73,7 +73,8 @@
                 {% if users %}
                 {% for user in users %}
                 <tr>
-                    <td>{{user.id}}</td>
+                    <td><img src="{% if user.image %} {{ user.image.url }} {% else %} /media/users/user.png {% endif %}"
+                            alt="{{book.title}}" style="object-fit: cover;" width="50px" height="50px"></td>
                     <td>{{user.username}}</td>
                     <td>{{user.password}}</td>
                     <td>{{user.age}}</td>

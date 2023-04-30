@@ -18,28 +18,37 @@ from admin_panel.models import AddNewBook
 
 # ? MAIN PAGE
 def main(request):
+    context = {}
     data_id = request.session.get('data_id')
     if data_id is not None:
-        try:
-            data = User.objects.get(id=data_id)
-            context = {'data': data}
-        except User.DoesNotExist:
-            messages.error(request, 'User does not exist')
-            context = {}
-    else:
-        context = {}
-    
+        data = User.objects.get(id=data_id)
+        context['data'] = data
+
     #all books
     books = Book.objects.filter(is_published=True)
     context['books'] = books
     #genre list
     genre_list = sorted(Book.objects.values('genre').annotate(num_books=Count('id')), key=lambda x: x['genre'])
     context['genre_list'] = genre_list
-
-    search_input = request.GET.get('search') or ''   
+        
+    search_input = request.GET.get('search') or ''
+    search_results = Book.objects.none()
+    last_viewed = Book.objects.none()
+    
     if search_input:
-        context['books'] = context['books'].filter(title__icontains=search_input)
+        search_results = Book.objects.filter(title__icontains=search_input)
+        context['books'] = search_results
         context['flag'] = 'Flag'
+        
+        search_history = request.session.get('search_history', [])
+        if search_history:
+            last_viewed = Book.objects.filter(title__icontains=search_history[-1])
+            
+        search_history.append(search_input)
+        search_history = search_history[-5:]
+        request.session['search_history'] = search_history
+    
+    context['last_viewed'] = last_viewed
 
     return render(request, 'base/main.html', context)
 
@@ -74,7 +83,6 @@ def register(request):
         response['Cache-Control'] = 'no-cache'
         return response
 
-
 # ? LOGIN USER
 def login_user(request):
     context = {}
@@ -84,12 +92,6 @@ def login_user(request):
             password = request.POST.get('password')
             password_hash = sha256(password.encode()).hexdigest()
             data = User.objects.get(username=username, password=password_hash)
-            
-            # #if user is not active
-            # if not data.is_active:
-            #     print('hello', data, data.is_active)
-            #     context['error'] = "Username is not active"
-            #     return redirect('login_user')
             
             if data is not None:
                 request.session['data_id'] = data.id
@@ -105,7 +107,6 @@ def logout(request):
     request.session.flush()
     return redirect('login_user')
 
-
 # ? BLOG
 def blog(request):
     return render(request, 'base/blog.html')
@@ -115,13 +116,14 @@ def contact(request):
     return render(request, 'base/contact.html')
 
 # ? PROFILE
-def profile(request):
-    user = get_object_or_404(User, id=1)
+def profile(request, pk):        
+    user = get_object_or_404(User, id=pk)
     return render(request, 'base/profile.html', {'user': user})
 
 # ? Edit user info
 def profile_edit(request, pk):
-    user = get_object_or_404(User, pk=pk)
+    user = get_object_or_404(User, id=pk)
+    print("Hello", user)
     if request.method == 'POST':
         user.username = request.POST.get('username')
         user.age = request.POST.get('age')
@@ -135,18 +137,14 @@ def profile_edit(request, pk):
         
         image_file = request.FILES.get('image')
         if image_file:
-            # Remove old image if exists
             if user.image:
                 os.remove(os.path.join(settings.MEDIA_ROOT, str(user.image)))
-            
-            # Save new image to media folder
+
             user.image = image_file
             
         user.save()
-        return redirect('profile')
+        return redirect('profile', pk=pk)
     return render(request, 'base/profile_edit.html', {'user': user})
-    
-    
     
 
 # ? Add Book to the table
@@ -164,11 +162,10 @@ def user_book_add(request):
                 genre=form.cleaned_data['genre']
             )
             new_book.save()
-            return redirect('profile')
+            return redirect('/')
     else:
         form = AddNewBook()
     return render(request, 'base/user_add_book.html', {'form': form})
-
 
 
 def book_genre(request, pk):

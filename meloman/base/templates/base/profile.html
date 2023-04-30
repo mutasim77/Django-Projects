@@ -114,12 +114,13 @@
                     <div class="card">
                         <div class="card-body" style="margin-bottom: 1.16rem;">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{user.image.url}}" alt="Admin" class="border border-dark rounded-circle"
-                                    width="150" height="150" style="object-fit: cover;">
+                                <img src="{% if user.image %} {{user.image.url}} {% else %} /media/users/user.png {% endif %}"
+                                    alt="Admin" class="border border-dark rounded-circle" width="150" height="150"
+                                    style="object-fit: cover;">
                                 <div class="mt-3">
                                     <h4>{{user.username|title}}</h4>
                                     <p class="text-secondary mb-1">Full Stack Developer</p>
-                                    <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                                    <p class="text-muted font-size-sm">Alamty, Kazakhstan</p>
                                     <div class="media-buttons d-flex">
                                         <a href="#" style="background: #4267b2" class="link">
                                             <i class="bx bxl-facebook"></i>
@@ -217,7 +218,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <a href="{% url 'profile_edit' pk=1 %}"><button
+                                    <a href="{% url 'profile_edit' pk=user.id %}"><button
                                             class="btn btn-primary">Edit</button></a>
                                 </div>
                                 <div class="col-sm-6 justify-content-end d-flex">

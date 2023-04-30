@@ -42,12 +42,18 @@
 
             <!-- left side buttons  -->
             <div class="left-side flex items-center">
-                <a href="{% url 'profile' %}">
+                {% if not data %}
+                <a href="{% url 'login_user' %}"
+                    style="font-size: 1em; background-color: #2a88da; padding: .3em 1em; border-radius: 1em;">Login</a>
+                {% else %}
+                <a href="{% url 'profile' pk=data.id %}">
                     <span style="font-size: .5em;">
-                        <img src="{% static 'base/images/user_profile.png' %}" alt="user" width="50"
+                        <img src="{% if data.image %} {{data.image.url}} {% else %} /media/users/user.png {% endif %}"
+                            alt="user" width="50"
                             style="object-fit: cover; border: 1px solid #ccc; border-radius: 50%; height: 46px;">
                     </span>
                 </a>
+                {% endif %}
             </div>
         </header>
 
@@ -167,11 +173,10 @@
 
         {% endif %}
 
+
         <!-- section cards boooks  -->
         <section class="card-books">
             <!-- right side  -->
-            <h2 style="text-align: center; font-size: 2em; margin-bottom: 1em;">Books</h2>
-
             <div class="right-side">
 
                 <div class="content flex flex-wrap justify-center" id="shop-books">
@@ -201,6 +206,41 @@
                 </div>
             </div>
         </section>
+
+        <!-- last viewed Books  -->
+        {% if last_viewed %}
+        <section class="card-books">
+            <!-- right side  -->
+            <div style="text-align: center; font-size: 1.5em; margin-bottom: 2em;">Last Viewed Books</div>
+            <div class="right-side">
+                <div class="content flex flex-wrap justify-center" id="shop-books">
+                    {% for book in last_viewed %}
+
+                    <div class="flex gap-2 flex-column">
+                        <img src="{{book.image.url}}" alt="book">
+                        <div class="flex flex-column  content-info">
+                            <h4>{{book.title}}</h4>
+
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                                <i class="far fa-star"></i>
+                                <span>{{book.rating}}</span>
+                            </div>
+
+                            <p>{{book.author}}</p>
+                            <div class="price">${{book.price}}</div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+        {% endif %}
 
         <!-- categories  -->
         <section class="section-categories">
